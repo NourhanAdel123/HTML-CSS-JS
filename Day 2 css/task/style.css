@@ -1,0 +1,21 @@
+.card {
+  /* display: inline-block; */
+  float: left;
+  width: 31.33333%;
+  text-align: center;
+  background-color: aqua;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.container {
+  width: 100%;
+  background-color: lightsalmon;
+}
+
+.clear {
+  clear: both;
+}

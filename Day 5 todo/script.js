@@ -17,6 +17,8 @@ function updateEmptyState() {
   emptyMessage.style.display = tasks.length ? "none" : "block";
 }
 
+/* ---------- Create Task ---------- */
+
 function createTaskElement(task) {
   const li = document.createElement("li");
   if (task.completed) li.classList.add("completed");
@@ -31,24 +33,35 @@ function createTaskElement(task) {
     renderTasks();
   });
 
-  // Double click to edit
-  span.addEventListener("dblclick", () => {
+  /* ---------- Edit Button ---------- */
+  const editBtn = document.createElement("button");
+  editBtn.innerHTML = "✏️";
+  editBtn.classList.add("edit-btn");
+
+  editBtn.addEventListener("click", () => {
     const inputEdit = document.createElement("input");
     inputEdit.value = task.text;
 
-    inputEdit.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        task.text = inputEdit.value.trim() || task.text;
-        saveTasks();
-        renderTasks();
-      }
-    });
-
     li.replaceChild(inputEdit, span);
     inputEdit.focus();
+
+    function saveEdit() {
+      const newValue = inputEdit.value.trim();
+      if (newValue) task.text = newValue;
+
+      saveTasks();
+      renderTasks();
+    }
+
+    inputEdit.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") saveEdit();
+      if (e.key === "Escape") renderTasks();
+    });
+
+    inputEdit.addEventListener("blur", saveEdit);
   });
 
-  // Delete button
+  /* ---------- Delete ---------- */
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
   deleteBtn.classList.add("delete-btn");
@@ -59,9 +72,11 @@ function createTaskElement(task) {
     renderTasks();
   });
 
-  li.append(span, deleteBtn);
+  li.append(span, editBtn, deleteBtn);
   return li;
 }
+
+/* ---------- Render ---------- */
 
 function renderTasks() {
   list.innerHTML = "";
@@ -79,13 +94,7 @@ function renderTasks() {
   updateEmptyState();
 }
 
-/* ---------- Events ---------- */
-
-// Add task
-addBtn.addEventListener("click", addTask);
-input.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") addTask();
-});
+/* ---------- Add Task ---------- */
 
 function addTask() {
   const value = input.value.trim();
@@ -108,7 +117,14 @@ function addTask() {
   input.value = "";
 }
 
-// Filters
+addBtn.addEventListener("click", addTask);
+
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") addTask();
+});
+
+/* ---------- Filters ---------- */
+
 filterButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     document.querySelector(".filters .active").classList.remove("active");

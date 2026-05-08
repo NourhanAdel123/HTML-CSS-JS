@@ -104,6 +104,11 @@ console.log(result);
 //    Write a function that returns true if a word reads the same
 //    forwards and backwards. ("racecar" → true, "hello" → false)
 // */
+function plandrome(str) {
+  let newStr = str.split("").reverse().join("");
+  return newStr === str;
+}
+console.log(plandrome("aba"));
 
 // /*
 //    PROBLEM 10: Flatten an Array
@@ -111,10 +116,29 @@ console.log(result);
 //    [[1,2], [3,4], [5,6]] → [1, 2, 3, 4, 5, 6]
 // */
 
+function flatten(arr) {
+  return arr.flat(1);
+}
+console.log(flatten([1, [2, 3]]));
+
 // /*
 //    PROBLEM 11: Find Duplicates
 //    Write a function that returns all duplicate values in an array.
 // */
+
+function findDublicates(arr) {
+  let seen = new Set();
+  let dub = [];
+  for (let item of arr) {
+    if (seen.has(item)) {
+      dub.push(item);
+    } else {
+      seen.add(item);
+    }
+  }
+  return dub;
+}
+console.log(findDublicates([1, 2, 2, 3, 3, 4]));
 
 // /*
 //    PROBLEM 12: Group By (Advanced Objects + Arrays)
@@ -122,6 +146,23 @@ console.log(result);
 //    Input:  [{ name, grade }, ...]
 //    Output: { Pass: ["Ahmed", ...], Fail: ["Sara", ...] }
 // */
+function convert(arr) {
+  let res = {
+    Pass: [],
+    Fail: [],
+  };
+  arr.map((item) =>
+    item.grade > 50 ? res.Pass.push(item.name) : res.Fail.push(item.name),
+  );
+  return res;
+}
+console.log(
+  convert([
+    { name: "Ahmed", grade: 80 },
+    { name: "Sara", grade: 40 },
+    { name: "Ali", grade: 60 },
+  ]),
+);
 
 // /* ─────────────────────────────────────────────────────────────
 //    🔴 HARD — NEW PROBLEMS (targeting recent topics)
@@ -134,12 +175,34 @@ console.log(result);
 //    - Total price of all items
 //    - Most expensive single item (by price * qty)
 // */
-// const cart = [
-//     { name: "Laptop",   price: 15000, qty: 1 },
-//     { name: "Mouse",    price:   350, qty: 2 },
-//     { name: "Keyboard", price:   800, qty: 1 },
-//     { name: "Monitor",  price:  5000, qty: 2 },
-// ];
+const cart = [
+  { name: "Laptop", price: 15000, qty: 1 },
+  { name: "Mouse", price: 350, qty: 2 },
+  { name: "Keyboard", price: 800, qty: 1 },
+  { name: "Monitor", price: 5000, qty: 2 },
+];
+function analyzeCart(cart) {
+  return cart.reduce(
+    (acc, item) => {
+      const total = item.price * item.qty;
+
+      acc.total += total;
+
+      if (!acc.mostExpensive || total > acc.mostExpensiveTotal) {
+        acc.mostExpensive = item;
+      }
+
+      return acc;
+    },
+    {
+      total: 0,
+      mostExpensive: null,
+    },
+  );
+}
+const res = analyzeCart(cart);
+console.log(res);
+console.log("hiiii");
 
 // // result
 // // { total: 27300, mostExpensive: "Monitor" }
@@ -150,13 +213,23 @@ console.log(result);
 //    sort them by score descending and return a formatted
 //    leaderboard: ["1. Ahmed — 950", "2. Sara — 880", ...]
 // */
-// const players = [
-//     { name: "Nour",   score: 720 },
-//     { name: "Ahmed",  score: 950 },
-//     { name: "Layla",  score: 880 },
-//     { name: "Hassan", score: 650 },
-//     { name: "Sara",   score: 815 },
-// ];
+const players = [
+  { name: "Nour", score: 720 },
+  { name: "Ahmed", score: 950 },
+  { name: "Layla", score: 880 },
+  { name: "Hassan", score: 650 },
+  { name: "Sara", score: 815 },
+];
+
+// Step 1: sort descending by score
+const sorted = players.sort((a, b) => b.score - a.score);
+
+// Step 2: map to leaderboard format
+const leaderboard = sorted.map((player, index) => {
+  return `${index + 1}. ${player.name} — ${player.score}`;
+});
+
+console.log(leaderboard);
 
 // /* ─────────────────────────────────────────────────────────────
 //    ⭐ BONUS: SHAPE CHALLENGES (Nested Loops!)
@@ -220,6 +293,13 @@ for (let i = 4; i >= 0; i--) {
 //     ★★★★★
 //    ★★★★★★★
 // */
+const n = 4;
+
+for (let i = 1; i <= n; i++) {
+  let spaces = " ".repeat(n - i);
+  let stars = "★".repeat(2 * i - 1);
+  console.log(spaces + stars);
+}
 
 // /*
 //    SHAPE 5: Diamond ← Hardest Shape (2 pyramids!)
@@ -229,3 +309,21 @@ for (let i = 4; i >= 0; i--) {
 //      ★★★
 //       ★
 // */
+console.log("\n");
+{
+  const n = 3;
+
+  // Top pyramid
+  for (let i = 1; i <= n; i++) {
+    let spaces = " ".repeat(n - i);
+    let stars = "★".repeat(2 * i - 1);
+    console.log(spaces + stars);
+  }
+
+  // Bottom pyramid
+  for (let i = n - 1; i >= 1; i--) {
+    let spaces = " ".repeat(n - i);
+    let stars = "★".repeat(2 * i - 1);
+    console.log(spaces + stars);
+  }
+}

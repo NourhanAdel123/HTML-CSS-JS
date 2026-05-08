@@ -42,19 +42,32 @@ button {
   padding: 10px;
   border: none;
   cursor: pointer;
-  background: #4caf50;
   color: white;
 }
 
+/* Buttons */
+#addBtn {
+  background: #4caf50;
+}
+
+.edit-btn {
+  background: #2196f3;
+  margin: 0 5px;
+}
+
+.delete-btn {
+  background: red;
+}
+
+/* Filters */
 .filters {
   margin: 15px 0;
   display: flex;
-  justify-content: space-between;
+  gap: 5px;
 }
 
 .filters button {
   flex: 1;
-  margin: 0 5px;
   background: #333;
 }
 
@@ -62,6 +75,7 @@ button {
   background: #4caf50;
 }
 
+/* List */
 ul {
   list-style: none;
 }
@@ -75,15 +89,19 @@ li {
   margin-bottom: 10px;
 }
 
+/* Text */
+li span {
+  flex: 1;
+  cursor: pointer;
+  user-select: none;
+}
+
 .completed span {
   text-decoration: line-through;
   opacity: 0.6;
 }
 
-.delete-btn {
-  background: red;
-}
-
+/* Empty message */
 #emptyMessage {
   text-align: center;
   margin-top: 10px;
