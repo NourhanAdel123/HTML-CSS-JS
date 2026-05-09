@@ -393,8 +393,74 @@ textarea {
     margin-left: auto;
   }
 }
-/* .container {
-  max-width: 1200px;
+/*************/
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #ffffff;
+  position: relative;
+}
 
-  margin: auto;
-} */
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: black;
+  text-decoration: none;
+}
+
+/* Hide checkbox */
+#menu-toggle {
+  display: none;
+}
+
+/* Burger icon */
+.burger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: black;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .burger {
+    display: block;
+  }
+
+  nav {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+
+    background: #ffffff;
+
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  nav a {
+    padding: 10px 0;
+  }
+
+  /* show nav when checkbox checked */
+  #menu-toggle:checked + .burger + nav {
+    display: flex;
+  }
+
+  header button {
+    display: none;
+  }
+  header {
+    display: flex;
+    flex-direction: row;
+  }
+}

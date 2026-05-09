@@ -1,0 +1,16 @@
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+
+  animation: moveBox 2s;
+}
+
+@keyframes moveBox {
+  from {
+    margin-left: 0;
+  }
+  to {
+    margin-left: 200px;
+  }
+}
