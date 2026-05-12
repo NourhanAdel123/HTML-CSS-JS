@@ -17,17 +17,28 @@ for (let i = 1970; i < 2027; i++) {
   content.textContent = i;
   options.appendChild(content);
 }
-
 let table = document.getElementById("table");
 
+// Create header row
+let headerRow = document.createElement("tr");
+
+for (let i = 0; i < 5; i++) {
+  let th = document.createElement("th");
+  th.textContent = "title";
+  headerRow.appendChild(th);
+}
+
+table.appendChild(headerRow);
+
+// Create data rows
 for (let i = 0; i < 31; i++) {
-  let element = document.createElement("tr");
+  let row = document.createElement("tr");
 
-  let data = document.createElement("td");
+  for (let j = 0; j < 5; j++) {
+    let td = document.createElement("td");
+    td.textContent = "hello";
+    row.appendChild(td);
+  }
 
-  data.textContent = "hello";
-
-  element.appendChild(data);
-
-  table.appendChild(element);
+  table.appendChild(row);
 }
